@@ -17,7 +17,7 @@ from typing import List
 HEADER_ID_PREFIX = 'BITCOIN_'
 HEADER_ID_SUFFIX = '_H'
 
-EXCLUDE_FILES_WITH_PREFIX = ['contrib/devtools/bitcoin-tidy',
+EXCLUDE_FILES_WITH_PREFIX = ['contrib/devtools/bewcore-tidy',
                              'src/crypto/ctaes',
                              'src/leveldb',
                              'src/crc32c',

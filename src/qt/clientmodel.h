@@ -49,7 +49,7 @@ enum NumConnections {
     CONNECTIONS_ALL  = (CONNECTIONS_IN | CONNECTIONS_OUT),
 };
 
-/** Model for Bitcoin network client. */
+/** Model for Bewcore network client. */
 class ClientModel : public QObject
 {
     Q_OBJECT

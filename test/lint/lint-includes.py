@@ -15,7 +15,7 @@ import sys
 from subprocess import check_output, CalledProcessError
 
 
-EXCLUDED_DIRS = ["contrib/devtools/bitcoin-tidy/",
+EXCLUDED_DIRS = ["contrib/devtools/bewcore-tidy/",
                  "src/leveldb/",
                  "src/crc32c/",
                  "src/secp256k1/",

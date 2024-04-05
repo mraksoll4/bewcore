@@ -94,8 +94,8 @@
         <translation type="unfinished">กำลังเชื่อมต่อไปยัง peers…</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and bitcoin: URIs)</source>
-        <translation type="unfinished">ขอการชำระเงิน (สร้างรหัส QR และ bitcoin: URIs)</translation>
+        <source>Request payments (generates QR codes and bewcore: URIs)</source>
+        <translation type="unfinished">ขอการชำระเงิน (สร้างรหัส QR และ bewcore: URIs)</translation>
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -214,7 +214,7 @@
         <translation type="unfinished">&amp;แสดง</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to Bitcoin network.</source>
+        <source>%n active connection(s) to Bewcore network.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished">
             <numerusform>%n เครือข่ายที่สามารถใช้เชื่อมต่อไปยังเครือข่ายบิตคอยน์ได้</numerusform>
@@ -433,8 +433,8 @@
         <translation type="unfinished">แก้ไข แอดเดรส การส่ง</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid Bitcoin address.</source>
-        <translation type="unfinished">แอดเดรส ที่ป้อน "%1" เป็น Bitcoin แอดเดรส ที่ ไม่ ถูกต้อง</translation>
+        <source>The entered address "%1" is not a valid Bewcore address.</source>
+        <translation type="unfinished">แอดเดรส ที่ป้อน "%1" เป็น Bewcore แอดเดรส ที่ ไม่ ถูกต้อง</translation>
     </message>
     <message>
         <source>Address "%1" already exists as a receiving address with label "%2" and so cannot be added as a sending address.</source>
@@ -500,8 +500,8 @@
         </translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the Bitcoin block chain.</source>
-        <translation type="unfinished">%1 จะดาวน์โหลดและจัดเก็บสำเนาของบล็อกเชน Bitcoin</translation>
+        <source>%1 will download and store a copy of the Bewcore block chain.</source>
+        <translation type="unfinished">%1 จะดาวน์โหลดและจัดเก็บสำเนาของบล็อกเชน Bewcore</translation>
     </message>
     <message>
         <source>The wallet will also be stored in this directory.</source>

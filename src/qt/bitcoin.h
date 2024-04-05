@@ -32,7 +32,7 @@ class Init;
 } // namespace interfaces
 
 
-/** Main Bitcoin application object */
+/** Main Bewcore application object */
 class BitcoinApplication: public QApplication
 {
     Q_OBJECT

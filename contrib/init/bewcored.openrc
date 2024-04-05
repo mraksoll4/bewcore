@@ -1,0 +1,93 @@
+#!/sbin/openrc-run
+
+# backward compatibility for existing gentoo layout 
+#
+if [ -d "/var/lib/bewcore/.bewcore" ]; then
+	BEWCORED_DEFAULT_DATADIR="/var/lib/bewcore/.bewcore"
+else
+	BEWCORED_DEFAULT_DATADIR="/var/lib/bewcored"
+fi
+
+BEWCORED_CONFIGFILE=${BEWCORED_CONFIGFILE:-/etc/bewcore/bewcore.conf}
+BEWCORED_PIDDIR=${BEWCORED_PIDDIR:-/var/run/bewcored}
+BEWCORED_PIDFILE=${BEWCORED_PIDFILE:-${BEWCORED_PIDDIR}/bewcored.pid}
+BEWCORED_DATADIR=${BEWCORED_DATADIR:-${BEWCORED_DEFAULT_DATADIR}}
+BEWCORED_USER=${BEWCORED_USER:-${BEWCORE_USER:-bewcore}}
+BEWCORED_GROUP=${BEWCORED_GROUP:-bewcore}
+BEWCORED_BIN=${BEWCORED_BIN:-/usr/bin/bewcored}
+BEWCORED_NICE=${BEWCORED_NICE:-${NICELEVEL:-0}}
+BEWCORED_OPTS="${BEWCORED_OPTS:-${BEWCORE_OPTS}}"
+
+name="Bewcore Core Daemon"
+description="Bewcore cryptocurrency P2P network daemon"
+
+command="/usr/bin/bewcored"
+command_args="-pid=\"${BEWCORED_PIDFILE}\" \
+		-conf=\"${BEWCORED_CONFIGFILE}\" \
+		-datadir=\"${BEWCORED_DATADIR}\" \
+		-daemon \
+		${BEWCORED_OPTS}"
+
+required_files="${BEWCORED_CONFIGFILE}"
+start_stop_daemon_args="-u ${BEWCORED_USER} \
+			-N ${BEWCORED_NICE} -w 2000"
+pidfile="${BEWCORED_PIDFILE}"
+
+# The retry schedule to use when stopping the daemon. Could be either
+# a timeout in seconds or multiple signal/timeout pairs (like
+# "SIGKILL/180 SIGTERM/300")
+retry="${BEWCORED_SIGTERM_TIMEOUT}"
+
+depend() {
+	need localmount net
+}
+
+# verify
+# 1) that the datadir exists and is writable (or create it)
+# 2) that a directory for the pid exists and is writable
+# 3) ownership and permissions on the config file
+start_pre() {
+	checkpath \
+	-d \
+	--mode 0750 \
+	--owner "${BEWCORED_USER}:${BEWCORED_GROUP}" \
+	"${BEWCORED_DATADIR}"
+
+	checkpath \
+	-d \
+	--mode 0755 \
+	--owner "${BEWCORED_USER}:${BEWCORED_GROUP}" \
+	"${BEWCORED_PIDDIR}"
+
+	checkpath -f \
+	-o "${BEWCORED_USER}:${BEWCORED_GROUP}" \
+	-m 0660 \
+	"${BEWCORED_CONFIGFILE}"
+
+	checkconfig || return 1
+}
+
+checkconfig()
+{
+	if grep -qs '^rpcuser=' "${BEWCORED_CONFIGFILE}" && \
+		! grep -qs '^rpcpassword=' "${BEWCORED_CONFIGFILE}" ; then
+		eerror ""
+		eerror "ERROR: You must set a secure rpcpassword to run bewcored."
+		eerror "The setting must appear in ${BEWCORED_CONFIGFILE}"
+		eerror ""
+		eerror "This password is security critical to securing wallets "
+		eerror "and must not be the same as the rpcuser setting."
+		eerror "You can generate a suitable random password using the following "
+		eerror "command from the shell:"
+		eerror ""
+		eerror "bash -c 'tr -dc a-zA-Z0-9 < /dev/urandom | head -c32 && echo'"
+		eerror ""
+		eerror "It is recommended that you also set alertnotify so you are "
+		eerror "notified of problems:"
+		eerror ""
+		eerror "ie: alertnotify=echo %%s | mail -s \"Bewcore Alert\"" \
+			"admin@foo.com"
+		eerror ""
+		return 1
+	fi
+}

@@ -1,0 +1,33 @@
+# /etc/conf.d/bewcored: config file for /etc/init.d/bewcored
+
+# Config file location
+#BEWCORED_CONFIGFILE="/etc/bewcore/bewcore.conf"
+
+# What directory to write pidfile to?  (created and owned by $BEWCORED_USER)
+#BEWCORED_PIDDIR="/var/run/bewcored"
+
+# What filename to give the pidfile
+#BEWCORED_PIDFILE="${BEWCORED_PIDDIR}/bewcored.pid"
+
+# Where to write bewcored data (be mindful that the blockchain is large)
+#BEWCORED_DATADIR="/var/lib/bewcored"
+
+# User and group to own bewcored process
+#BEWCORED_USER="bewcore"
+#BEWCORED_GROUP="bewcore"
+
+# Path to bewcored executable
+#BEWCORED_BIN="/usr/bin/bewcored"
+
+# Nice value to run bewcored under
+#BEWCORED_NICE=0
+
+# Additional options (avoid -conf and -datadir, use flags above)
+#BEWCORED_OPTS=""
+
+# The timeout in seconds OpenRC will wait for bewcored to terminate
+# after a SIGTERM has been raised.
+# Note that this will be mapped as argument to start-stop-daemon's
+# '--retry' option, which means you can specify a retry schedule
+# here. For more information see man 8 start-stop-daemon.
+BEWCORED_SIGTERM_TIMEOUT=600

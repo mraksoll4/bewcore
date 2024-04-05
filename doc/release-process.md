@@ -5,10 +5,10 @@ Release Process
 
 ### Before every release candidate
 
-* Update translations see [translation_process.md](https://github.com/bitcoin/bitcoin/blob/master/doc/translation_process.md#synchronising-translations).
+* Update translations see [translation_process.md](https://github.com/mraksoll4/bewcore/blob/master/doc/translation_process.md#synchronising-translations).
 * Update release candidate version in `configure.ac` (`CLIENT_VERSION_RC`).
-* Update manpages (after rebuilding the binaries), see [gen-manpages.py](https://github.com/bitcoin/bitcoin/blob/master/contrib/devtools/README.md#gen-manpagespy).
-* Update bitcoin.conf and commit, see [gen-bitcoin-conf.sh](https://github.com/bitcoin/bitcoin/blob/master/contrib/devtools/README.md#gen-bitcoin-confsh).
+* Update manpages (after rebuilding the binaries), see [gen-manpages.py](https://github.com/mraksoll4/bewcore/blob/master/contrib/devtools/README.md#gen-manpagespy).
+* Update bitcoin.conf and commit, see [gen-bitcoin-conf.sh](https://github.com/mraksoll4/bewcore/blob/master/contrib/devtools/README.md#gen-bitcoin-confsh).
 
 ### Before every major and minor release
 
@@ -96,7 +96,7 @@ Check out the source code in the following directory hierarchy.
     cd /path/to/your/toplevel/build
     git clone https://github.com/bitcoin-core/guix.sigs.git
     git clone https://github.com/bitcoin-core/bitcoin-detached-sigs.git
-    git clone https://github.com/bitcoin/bitcoin.git
+    git clone https://github.com/mraksoll4/bewcore.git
 
 ### Write the release notes
 
@@ -110,7 +110,7 @@ Generate list of authors:
 
 ### Setup and perform Guix builds
 
-Checkout the Bitcoin Core version you'd like to build:
+Checkout the Bewcore Core version you'd like to build:
 
 ```sh
 pushd ./bitcoin
@@ -270,9 +270,9 @@ cat "$VERSION"/*/all.SHA256SUMS.asc > SHA256SUMS.asc
   - bitcoincore.org maintained versions update:
     [table](https://github.com/bitcoin-core/bitcoincore.org/commits/master/_includes/posts/maintenance-table.md)
 
-  - Delete post-EOL [release branches](https://github.com/bitcoin/bitcoin/branches/all) and create a tag `v${branch_name}-final`.
+  - Delete post-EOL [release branches](https://github.com/mraksoll4/bewcore/branches/all) and create a tag `v${branch_name}-final`.
 
-  - Delete ["Needs backport" labels](https://github.com/bitcoin/bitcoin/labels?q=backport) for non-existing branches.
+  - Delete ["Needs backport" labels](https://github.com/mraksoll4/bewcore/labels?q=backport) for non-existing branches.
 
   - bitcoincore.org RPC documentation update
 
@@ -288,7 +288,7 @@ cat "$VERSION"/*/all.SHA256SUMS.asc > SHA256SUMS.asc
 
       - Archive the release notes for the new version to `doc/release-notes/` (branch `master` and branch of the release)
 
-      - Create a [new GitHub release](https://github.com/bitcoin/bitcoin/releases/new) with a link to the archived release notes
+      - Create a [new GitHub release](https://github.com/mraksoll4/bewcore/releases/new) with a link to the archived release notes
 
 - Announce the release:
 
