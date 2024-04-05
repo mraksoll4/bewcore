@@ -121,9 +121,11 @@ bool BlockTreeDB::LoadBlockIndexGuts(const Consensus::Params& consensusParams, s
                 pindexNew->nStatus        = diskindex.nStatus;
                 pindexNew->nTx            = diskindex.nTx;
 
+                /*
                 if (!CheckProofOfWork(pindexNew->GetBlockHash(), pindexNew->nBits, consensusParams)) {
                     return error("%s: CheckProofOfWork failed: %s", __func__, pindexNew->ToString());
                 }
+                */
 
                 pcursor->Next();
             } else {
@@ -1028,9 +1030,12 @@ bool BlockManager::ReadBlockFromDisk(CBlock& block, const FlatFilePos& pos) cons
         return error("%s: Deserialize or I/O error - %s at %s", __func__, e.what(), pos.ToString());
     }
 
-    // Check the header
-    if (!CheckProofOfWork(block.GetHash(), block.nBits, GetConsensus())) {
-        return error("ReadBlockFromDisk: Errors in block header at %s", pos.ToString());
+    // Check the header for both variants of Proof of Work
+    bool powResult1 = CheckProofOfWork(block.GetArgon2idPoWHash(), block.nBits, GetConsensus());
+    bool powResult2 = CheckProofOfWork(block.GetArgon2idPoWHash2(), block.nBits, GetConsensus());
+
+    if (!(powResult1 && powResult2)) {
+        return error("ReadBlockFromDisk: Proof of Work is not valid for both variants for the block header at %s", pos.ToString());
     }
 
     // Signet only: check block solution

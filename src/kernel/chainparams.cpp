@@ -82,9 +82,10 @@ public:
         consensus.CSVHeight = 1;
         consensus.SegwitHeight = 1;
         consensus.MinBIP9WarningHeight = 2017; // segwit activation height + miner confirmation window
-        consensus.powLimit = uint256S("00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-        consensus.nPowTargetTimespan = 14 * 24 * 60 * 60; // two weeks
-        consensus.nPowTargetSpacing = 10 * 60;
+        consensus.powLimit = uint256S("001fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+        consensus.nPowTargetTimespan = 60; // two weeks
+        consensus.nPowTargetSpacing = 60;
+        consensus.lwmaAveragingWindow = 360;
         consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.fPowNoRetargeting = false;
         consensus.nRuleChangeActivationThreshold = 1815; // 90% of 2016
@@ -117,10 +118,44 @@ public:
         m_assumed_blockchain_size = 5;
         m_assumed_chain_state_size = 3;
 
-        genesis = CreateGenesisBlock(1231006505, 2083236893, 0x1d00ffff, 1, 50 * COIN);
+        uint32_t nTime=1701708401;
+        uint32_t nNonce=1;
+       
+        // @"consensus.hashGenesisBlock: 000000004c2738ff52ee6dc039d4fde2f3292fed9afa9d712f895d7094f8d350\r\n"
+        // @"genesis.hashMerkleRoot: c36c4216baf256beb34d939e7aa158a54b7488be996e8bdab8d83ff9c73f1f4d\r\n"
+        // @"genesis.nNonce: 771851678\r\n"
+        // Difficulty bits:
+        // Using following formula target can be obtained from any block. For example if a target packed in a block appears as 0x1b0404cb its hexadecimal version will look as following:
+        // 0x0404cb * 2**(8*(0x1b - 3)) = 0x00000000000404CB000000000000000000000000000000000000000000000000
+        bool proof_of_work_valid = false;
+        for (nTime=1701708401; ;nTime++)
+        {
+            genesis = CreateGenesisBlock(nTime, nNonce, 0x1d00ffff, 1, 50 * COIN);
+
+            for (genesis.nNonce = 1; genesis.nNonce <= 0xfffffff0;genesis.nNonce++)
+            {   
+                proof_of_work_valid = (CheckProofOfWork(genesis.GetArgon2idPoWHash(), genesis.nBits, consensus ) && CheckProofOfWork(genesis.GetArgon2idPoWHash2(), genesis.nBits, consensus ));
+                if (proof_of_work_valid) {
+                    break;
+                }
+            }
+            if (proof_of_work_valid) {
+                break;
+            }
+
+            std::cout << "time: " << nTime << std::endl;
+        }
+
+        
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f"));
-        assert(genesis.hashMerkleRoot == uint256S("0x4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"));
+        std::cout << "consensus.hashGenesisBlock: " << consensus.hashGenesisBlock.ToString() << std::endl;
+        std::cout << "genesis.hashMerkleRoot: " << genesis.hashMerkleRoot.ToString() << std::endl;   
+        std::cout << "genesis.nNonce: " << genesis.nNonce << std::endl;
+        std::cout << "genesis.nTime: " << nTime << std::endl;
+
+                                                         
+        assert(consensus.hashGenesisBlock == uint256S("00000000e073c081280853d8b51b64037b6a20f9d11d191ed18182c2b55a92d7"));
+        assert(genesis.hashMerkleRoot == uint256S("beb542cfaf26aafd479e7e6809969f13c80fdb91be43eb3eb7e14f41d3f147a5"));
 
         // Note that of those which support the service bits prefix, most only support a subset of
         // possible options.

@@ -274,6 +274,16 @@ public:
         return NodeSeconds{std::chrono::seconds{nTime}};
     }
 
+    uint256 GetBlockArgon2idPoWHash() const
+    {
+        return GetBlockHeader().GetArgon2idPoWHash();
+    }
+    
+    uint256 GetBlockArgon2idPoWHash2() const
+    {
+        return GetBlockHeader().GetArgon2idPoWHash2();
+    }
+
     int64_t GetBlockTime() const
     {
         return (int64_t)nTime;

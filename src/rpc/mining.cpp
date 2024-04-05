@@ -120,13 +120,15 @@ static bool GenerateBlock(ChainstateManager& chainman, CBlock& block, uint64_t& 
     block_out.reset();
     block.hashMerkleRoot = BlockMerkleRoot(block);
 
-    while (max_tries > 0 && block.nNonce < std::numeric_limits<uint32_t>::max() && !CheckProofOfWork(block.GetHash(), block.nBits, chainman.GetConsensus()) && !ShutdownRequested()) {
+    while (max_tries > 0 && block.nNonce < std::numeric_limits<uint32_t>::max() && !(CheckProofOfWork(block.GetArgon2idPoWHash(), block.nBits, chainman.GetConsensus()) && CheckProofOfWork(block.GetArgon2idPoWHash2(), block.nBits, chainman.GetConsensus())) && !ShutdownRequested()) {
         ++block.nNonce;
         --max_tries;
     }
+
     if (max_tries == 0 || ShutdownRequested()) {
         return false;
     }
+
     if (block.nNonce == std::numeric_limits<uint32_t>::max()) {
         return true;
     }

@@ -579,7 +579,23 @@ crypto_libbitcoin_crypto_base_la_SOURCES = \
   crypto/sha512.cpp \
   crypto/sha512.h \
   crypto/siphash.cpp \
-  crypto/siphash.h
+  crypto/siphash.h \
+  crypto/argon2d/argon2.c \
+  crypto/argon2d/argon2.h \
+  crypto/argon2d/core.c \
+  crypto/argon2d/core.h \
+  crypto/argon2d/encoding.c \
+  crypto/argon2d/encoding.h \
+  crypto/argon2d/genkat.c \
+  crypto/argon2d/genkat.h \
+  crypto/argon2d/opt.c \
+  crypto/argon2d/thread.c \
+  crypto/argon2d/thread.h \
+  crypto/argon2d/blake2/blake2-impl.h \
+  crypto/argon2d/blake2/blake2.h \
+  crypto/argon2d/blake2/blake2b.c \
+  crypto/argon2d/blake2/blamka-round-opt.h \
+  crypto/argon2d/blake2/blamka-round-ref.h
 
 if USE_ASM
 crypto_libbitcoin_crypto_base_la_SOURCES += crypto/sha256_sse4.cpp
