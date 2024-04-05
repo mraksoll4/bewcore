@@ -156,11 +156,11 @@ You can also manually configure your node to be reachable from the Tor network.
 Add these lines to your `/etc/tor/torrc` (or equivalent config file):
 
     HiddenServiceDir /var/lib/tor/bewcore-service/
-    HiddenServicePort 8333 127.0.0.1:8334
+    HiddenServicePort 42003 127.0.0.1:42004
 
 The directory can be different of course, but virtual port numbers should be equal to
-your bewcored's P2P listen port (8333 by default), and target addresses and ports
-should be equal to binding address and port for inbound Tor connections (127.0.0.1:8334 by default).
+your bewcored's P2P listen port (42003 by default), and target addresses and ports
+should be equal to binding address and port for inbound Tor connections (127.0.0.1:42004 by default).
 
     -externalip=X   You can tell bewcore about its publicly reachable addresses using
                     this option, and this can be an onion address. Given the above
@@ -200,7 +200,7 @@ as well, use `discover` instead:
 
     ./bewcored ... -discover
 
-and open port 8333 on your firewall (or use port mapping, i.e., `-upnp` or `-natpmp`).
+and open port 42003 on your firewall (or use port mapping, i.e., `-upnp` or `-natpmp`).
 
 If you only want to use Tor to reach .onion addresses, but not use it as a proxy
 for normal IPv4/IPv6 communication, use:

@@ -82,9 +82,9 @@ The high water mark value must be an integer greater than or equal to 0.
 
 For instance:
 
-    $ bewcored -zmqpubhashtx=tcp://127.0.0.1:28332 \
-               -zmqpubhashtx=tcp://192.168.1.2:28332 \
-               -zmqpubhashblock="tcp://[::1]:28333" \
+    $ bewcored -zmqpubhashtx=tcp://127.0.0.1:42102 \
+               -zmqpubhashtx=tcp://192.168.1.2:42102 \
+               -zmqpubhashblock="tcp://[::1]:42103" \
                -zmqpubrawtx=ipc:///tmp/bewcored.tx.raw \
                -zmqpubhashtxhwm=10000
 

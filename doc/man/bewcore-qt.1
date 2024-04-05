@@ -213,8 +213,8 @@ Default duration (in seconds) of manually configured bans (default:
 Bind to given address and always listen on it (default: 0.0.0.0). Use
 [host]:port notation for IPv6. Append =onion to tag any incoming
 connections to that address and port as incoming Tor connections
-(default: 127.0.0.1:8334=onion, testnet: 127.0.0.1:18334=onion,
-signet: 127.0.0.1:38334=onion, regtest: 127.0.0.1:18445=onion)
+(default: 127.0.0.1:42004=onion, testnet: 127.0.0.1:42204=onion,
+signet: 127.0.0.1:42304=onion, regtest: 127.0.0.1:42445=onion)
 .HP
 \fB\-cjdnsreachable\fR
 .IP
@@ -338,7 +338,7 @@ Support filtering of blocks and transaction with bloom filters (default:
 \fB\-port=\fR<port>
 .IP
 Listen for connections on <port>. Nodes not using the default ports
-(default: 8333, testnet: 18333, signet: 38333, regtest: 18444)
+(default: 42003, testnet: 42203, signet: 42303, regtest: 42444)
 are unlikely to get incoming connections. Not relevant for I2P
 (see doc/i2p.md).
 .HP
@@ -751,8 +751,8 @@ Password for JSON\-RPC connections
 .HP
 \fB\-rpcport=\fR<port>
 .IP
-Listen for JSON\-RPC connections on <port> (default: 8332, testnet:
-18332, signet: 38332, regtest: 18443)
+Listen for JSON\-RPC connections on <port> (default: 42002, testnet:
+42202, signet: 42302, regtest: 42443)
 .HP
 \fB\-rpcserialversion\fR
 .IP
